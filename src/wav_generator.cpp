@@ -38,22 +38,18 @@ int wav_generator::generate_fmt()
 {
     const char *id = "fmt ";
     long size = 16;
-    short format_tag = 1;
-    short channels = 1;
-    long samples_per_sec = 44100;
-    short bits_per_sample = 8;
-    short block_align = bits_per_sample*channels/8; 
-    long bytes_per_sec = samples_per_sec*block_align;
+    short block_align = m_bits_per_sample*m_channels/8; 
+    long bytes_per_sec = m_samples_per_sec*block_align;
     char fmt_buffer[24] = {0};
 
     memcpy(fmt_buffer, id, 4);
     memcpy(fmt_buffer+4, &size, 4);
-    memcpy(fmt_buffer+8, &format_tag, 2);
-    memcpy(fmt_buffer+10, &channels, 2);
-    memcpy(fmt_buffer+12, &samples_per_sec, 4);
+    memcpy(fmt_buffer+8, &m_format_tag, 2);
+    memcpy(fmt_buffer+10, &m_channels, 2);
+    memcpy(fmt_buffer+12, &m_samples_per_sec, 4);
     memcpy(fmt_buffer+16, &bytes_per_sec, 4);
     memcpy(fmt_buffer+20, &block_align, 2);
-    memcpy(fmt_buffer+22, &bits_per_sample, 2);
+    memcpy(fmt_buffer+22, &m_bits_per_sample, 2);
     m_fmt.assign(fmt_buffer, fmt_buffer+24);
     return 0;
 }
