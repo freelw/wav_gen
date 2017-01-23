@@ -2,8 +2,9 @@
 #include <math.h>
 #include "wav_generator.h"
 
-int gen_sin(wav_generator *gen)
+int gen_sin()
 {
+    wav_generator *gen = new wav_generator;
     int size = 20;
     int len = 44100 * size;
     for (int i = 0; i < len; ++ i) {
@@ -16,8 +17,9 @@ int gen_sin(wav_generator *gen)
     return 0;
 }
 
-int gen_test(wav_generator *gen)
+int gen_test()
 {
+    wav_generator *gen = new wav_generator;
     char ch = 0xa0;
     char ch1 = 0xaa;
     char ch2 = 0xff;
@@ -32,7 +34,7 @@ int gen_test(wav_generator *gen)
 
 int main()
 {
-    wav_generator *gen = new wav_generator;
-    gen_sin(gen);
+    gen_sin();
+    gen_test();
     return 0;
 }
