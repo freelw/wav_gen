@@ -1,9 +1,23 @@
 #include <stdio.h>
+#include <math.h>
 #include "wav_generator.h"
 
-int main()
+int gen_sin(wav_generator *gen)
 {
-    wav_generator *gen = new wav_generator;
+    int size = 20;
+    int len = 44100 * size;
+    for (int i = 0; i < len; ++ i) {
+        double index = 1. * i / len * 3.14;
+        char ch = (char)(sin(index) * 0xff);
+        printf("%x ", ch);
+        gen->append(&ch, 1);
+    }
+    gen->generate("sin.wav");
+    return 0;
+}
+
+int gen_test(wav_generator *gen)
+{
     char ch = 0xa0;
     char ch1 = 0xaa;
     char ch2 = 0xff;
@@ -13,5 +27,12 @@ int main()
         gen->append(&ch2, 1);
     }
     gen->generate("1.wav");
+    return 0;
+}
+
+int main()
+{
+    wav_generator *gen = new wav_generator;
+    gen_sin(gen);
     return 0;
 }
